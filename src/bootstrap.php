@@ -32,12 +32,15 @@ if ($_ENV['environment'] === "test") {
 }
 
 $request = strtolower($_SERVER['REQUEST_URI']);
-
+    
 $tweetContent = null;
 
 switch ($request) {
 case '/radarr':
     $tweetContent = include __DIR__ . '/services/Radarr.php';
+    break;
+case '/sonarr':
+    $tweetContent = include __DIR__ . '/services/Sonarr.php';
     break;
 }
 

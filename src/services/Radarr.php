@@ -1,20 +1,20 @@
 <?php
+$data = json_decode(file_get_contents('php://input'), true);
 
-$data = json_decode(file_get_contents('php://input'));
-
-$data['randomEmoji'] = (new \MarufMax\Emoticon\Emoticon)->random();
+$data['emojiRandom'] = (new \MarufMax\Emoticon\Emoticon)->random();
+$data['emojiIcon'] = '🎥';
 
 if ($data['eventType'] === 'Grab') {
-    $data['release']['sizeReadable'] = (new ByteFormatter)->setBase(Base::DECIMAL)->format($data['release']['size']);
+    $data['release']['sizeReadable'] = (new ScriptFUSION\Byte\ByteFormatter)->setBase(ScriptFUSION\Byte\Base::DECIMAL)->format($data['release']['size']);
 }
 
 $engine = new StringTemplate\Engine;
 
 $stringTemplates = [
-    'Grab' => "{randomEmoji} Grabbed '{remoteMovie.title}' ({remoteMovie.year}) ({release.quality} - {release.sizeReadable})",
-    'Download' => "{randomEmoji} Downloaded '{remoteMovie.title}' ({remoteMovie.year}) (https://www.imdb.com/title/{remoteMovie.imdbId}/)",
-    'Rename' => "Renamed '{movie.title}'",
-    'Test' => "{randomEmoji} Testie!"
+    'Grab' => "{emojiIcon} ↝ {emojiRandom} Started downloading ‘{remoteMovie.title}’ ({remoteMovie.year}) ({release.quality} - {release.sizeReadable})",
+    'Download' => "{emojiIcon} ↝ {emojiRandom} Downloaded ‘{remoteMovie.title}’ ({remoteMovie.year}) (https://www.imdb.com/title/{remoteMovie.imdbId}/) 🎉",
+    'Rename' => "{emojiIcon} ↝ {emojiRandom} Renamed ‘{movie.title}’",
+    'Test' => "{emojiIcon} ↝ {emojiRandom} Testie!"
 ];
 
 $stringTemplates['Upgrade'] = $stringTemplates['Download'];

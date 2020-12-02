@@ -1,0 +1,34 @@
+{
+    "name": "marufmax/emoticon-php",
+    "type": "library",
+    "keywords": ["emoji","emoticon","php-emoji","simily-php"],
+    "description": "An Elegant Emoji/Emoticon package for PHP",
+    "license": "MIT",
+    "homepage": "https://github.com/marufmax/emoticon-php",
+    "authors": [
+        {
+            "name": "Maruf Alom",
+            "email": "desk.maruf@gmail.com",
+            "homepage": "http://marufalom.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "MarufMax\\Emoticon\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MarufMax\\Emoticon\\Test\\": "tests"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.5.14"
+    },
+    "scripts": {
+        "tests": "vendor/bin/phpunit"
+    }
+}

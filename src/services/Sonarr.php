@@ -1,6 +1,6 @@
 <?php
 
-class TweetSonar
+class TweetSonarr
 {
 
     /**
@@ -117,4 +117,4 @@ class TweetSonar
     }
 }
 
-return (new TweetSonar)->parse();
+return (new TweetSonarr)->parse();

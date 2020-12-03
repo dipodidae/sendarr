@@ -84,17 +84,21 @@ class Sendarr
             
         case 'live':
 
-            $connection = $this->getTwitterConnection();
-
-            $connection->get("account/verify_credentials");
-
+            
             if (empty($status)) {
                 $this->sendHeader(500);
                 echo "Tweet content was empty";
             } else {
-                $connection->post("statuses/update", ["status" => $status]);
-                $this->sendHeader(200);
-                echo "Tweet posted";
+                try {
+                    $connection = $this->getTwitterConnection();    
+                    $connection->get("account/verify_credentials");
+                    $connection->post("statuses/update", ["status" => $status]);
+                    $this->sendHeader(200);
+                    echo "Tweet posted";
+                } catch (Exception $error) {
+                    $this->sendHeader(500);
+                    echo "Error tweeting";
+                }
             }
             break;
         }

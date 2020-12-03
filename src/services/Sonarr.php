@@ -80,7 +80,13 @@ class TweetSonarr
     {
         $renderedEpisodes = array_map(
             function ($episode) {
-                return $this->engine->render("S{seasonNumber}, e{episodeNumber}", $episode); 
+
+                $paddedEpisodeNumbers = [
+                    'season' => str_pad($episode['seasonNumber'], 2, "0", STR_PAD_LEFT),
+                    'episode' => str_pad($episode['episodeNumber'], 2, "0", STR_PAD_LEFT)
+                ];
+
+                return $this->engine->render("{season}-{episode}", $paddedEpisodeNumbers); 
             },
             $this->data['episodes']
         );

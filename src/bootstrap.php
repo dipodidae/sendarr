@@ -53,7 +53,13 @@ class Sendarr
 
     function loadContentFromService(string $filename) : string
     {
-        return include __DIR__ . '/services/' . $filename . '.php';
+        $path = __DIR__ . '/services/' . $filename . '.php';
+
+        if (!file_exists($path)) {
+            return "Service file doesnt exist";
+        }
+        
+        return include $path;
     }
 
     function getTwitterConnection() : Abraham\TwitterOAuth\TwitterOAuth
@@ -68,7 +74,7 @@ class Sendarr
 
     function sendHeader(int $status) : void
     {
-        header($_SERVER['SERVER_PROTOCOL'] . $status, true, $status);
+        header($_SERVER['SERVER_PROTOCOL'] . strval($status), true, $status);
     }
 
     function tweet() : void

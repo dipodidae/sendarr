@@ -83,6 +83,7 @@ class TweetRadarr
     function getReadableFilesize() : string
     {
         return (new ScriptFUSION\Byte\ByteFormatter)
+            ->setPrecision(2)
             ->setBase(ScriptFUSION\Byte\Base::DECIMAL)
             ->format($this->data['release']['size']);
     }
@@ -90,9 +91,17 @@ class TweetRadarr
     /**
      * 
      */
+    private function getStringTemplate() : string
+    {
+        return $this->stringTemplates[$this->data['eventType']] ?? '';
+    }
+
+    /**
+     * 
+     */
     function parse() : string
     {
-        return $this->engine->render($this->stringTemplates[$this->data['eventType']], $this->data);
+        return $this->engine->render($this->getStringTemplate(), $this->data);
     }
 }
 

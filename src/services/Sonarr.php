@@ -56,7 +56,7 @@ class TweetSonarr
     function validate() : bool
     {
 
-        foreach(['series', 'episodes'] as $requiredKey) {
+        foreach(['series', 'eventType'] as $requiredKey) {
             if (!array_key_exists($requiredKey, $this->data)) {
                 return false;
             }
@@ -104,6 +104,7 @@ class TweetSonarr
     function getReadableFilesize() : string
     {
         return (new ScriptFUSION\Byte\ByteFormatter)
+            ->setPrecision(2)
             ->setBase(ScriptFUSION\Byte\Base::DECIMAL)
             ->format($this->data['release']['size']);
     }

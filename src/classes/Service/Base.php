@@ -9,11 +9,6 @@ class Base
     /**
      * 
      */
-    private $icon = '🚀';
-
-    /**
-     * 
-     */
     function validate() : bool
     {
         return true;

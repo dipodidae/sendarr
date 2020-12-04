@@ -46,7 +46,7 @@ class Radarr extends \Sendarr\Service\Base
         }
         
         if ($this->data['eventType'] === 'Grab') {
-            $this->data['release']['sizeReadable'] = $this->getReadableFilesize(intval($this->data['release']['size']));
+            $this->data['release']['sizeReadable'] = \Sendarr\Helpers::getReadableFilesize(intval($this->data['release']['size']));
         }
     }
 

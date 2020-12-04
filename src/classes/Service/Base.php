@@ -30,17 +30,6 @@ class Base
     /**
      * 
      */
-    function getReadableFilesize(int $size) : string
-    {
-        return (new \ScriptFUSION\Byte\ByteFormatter)
-            ->setPrecision(2)
-            ->setBase(\ScriptFUSION\Byte\Base::DECIMAL)
-            ->format($size);
-    }
-
-    /**
-     * 
-     */
     function setIcons() : void
     {
         $this->data['emojiIcon'] = $this->icon;

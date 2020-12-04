@@ -16,6 +16,11 @@ class Application
         case '/sonarr':
             return (new Service\Sonarr)->getStatus();
             break;
+        case '/rest':
+            return (new Service\Rest)->getStatus();
+            break;
+        default:
+            return '';
         }
     }
 

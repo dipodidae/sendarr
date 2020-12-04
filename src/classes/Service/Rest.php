@@ -9,6 +9,6 @@ class Rest
      */
     function getStatus()
     {
-        return $_GET['status'];
+        return $_GET['status'] ?? "Error: no status received";
     }
 }

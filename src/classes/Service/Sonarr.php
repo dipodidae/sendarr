@@ -1,12 +1,14 @@
 <?php
 
-class TweetSonarr
+namespace Sendarr\Service;
+
+class Sonarr extends \Sendarr\Service\Base
 {
 
     /**
      * 
      */
-    private $data;
+    public $data;
     
     /**
      * 
@@ -35,7 +37,7 @@ class TweetSonarr
     {
         
         $this->data = $this->getInputData();
-        $this->engine = new StringTemplate\Engine;
+        $this->engine = new \StringTemplate\Engine;
         
         $this->setIcons();
         
@@ -44,7 +46,7 @@ class TweetSonarr
         }
         
         if ($this->data['eventType'] === 'Grab') {
-            $this->data['release']['sizeReadable'] = $this->getReadableFilesize();
+            $this->data['release']['sizeReadable'] = $this->getReadableFilesize(intval($this->data['release']['size']));
         }
 
         if (in_array($this->data['eventType'], ['Grab', 'Download'])) {
@@ -68,14 +70,6 @@ class TweetSonarr
     /**
      * 
      */
-    function getInputData() : array
-    {
-        return json_decode(file_get_contents('php://input'), true);
-    }
-
-    /**
-     * 
-     */
     function getEpisodeList() : string
     {
         $renderedEpisodes = array_map(
@@ -86,7 +80,7 @@ class TweetSonarr
                     'episode' => str_pad($episode['episodeNumber'], 2, "0", STR_PAD_LEFT)
                 ];
 
-                return $this->engine->render("{season}-{episode}", $paddedEpisodeNumbers); 
+                return $this->engine->render("{season}•{episode}", $paddedEpisodeNumbers); 
             },
             $this->data['episodes']
         );
@@ -100,28 +94,15 @@ class TweetSonarr
      */
     function setIcons() : void
     {
-        $this->data['emojiIcon'] = '📺';
+        $this->data['emojiIcon'] = $this->icon;
         $this->data['emojiRandom'] = (new \MarufMax\Emoticon\Emoticon)->random();
     }
 
     /**
      * 
      */
-    function getReadableFilesize() : string
-    {
-        return (new ScriptFUSION\Byte\ByteFormatter)
-            ->setPrecision(2)
-            ->setBase(ScriptFUSION\Byte\Base::DECIMAL)
-            ->format($this->data['release']['size']);
-    }
-
-    /**
-     * 
-     */
-    function parse() : string
+    function getStatus() : string
     {
         return $this->engine->render($this->stringTemplates[$this->data['eventType']], $this->data);
     }
 }
-
-return (new TweetSonarr)->parse();

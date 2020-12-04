@@ -1,12 +1,14 @@
 <?php
 
-class TweetRadarr
+namespace Sendarr\Service;
+
+class Radarr extends \Sendarr\Service\Base
 {
 
     /**
      * 
      */
-    private $data;
+    public $data;
     
     /**
      * 
@@ -35,7 +37,7 @@ class TweetRadarr
     {
         
         $this->data = $this->getInputData();
-        $this->engine = new StringTemplate\Engine;
+        $this->engine = new \StringTemplate\Engine;
         
         $this->setIcons();
         
@@ -44,7 +46,7 @@ class TweetRadarr
         }
         
         if ($this->data['eventType'] === 'Grab') {
-            $this->data['release']['sizeReadable'] = $this->getReadableFilesize();
+            $this->data['release']['sizeReadable'] = $this->getReadableFilesize(intval($this->data['release']['size']));
         }
     }
 
@@ -63,34 +65,6 @@ class TweetRadarr
     /**
      * 
      */
-    function getInputData() : array
-    {
-        return json_decode(file_get_contents('php://input'), true);
-    }
-    
-    /**
-     * 
-     */
-    function setIcons() : void
-    {
-        $this->data['emojiIcon'] = '📺';
-        $this->data['emojiRandom'] = (new \MarufMax\Emoticon\Emoticon)->random();
-    }
-
-    /**
-     * 
-     */
-    function getReadableFilesize() : string
-    {
-        return (new ScriptFUSION\Byte\ByteFormatter)
-            ->setPrecision(2)
-            ->setBase(ScriptFUSION\Byte\Base::DECIMAL)
-            ->format($this->data['release']['size']);
-    }
-
-    /**
-     * 
-     */
     private function getStringTemplate() : string
     {
         return $this->stringTemplates[$this->data['eventType']] ?? '';
@@ -99,10 +73,8 @@ class TweetRadarr
     /**
      * 
      */
-    function parse() : string
+    function getStatus() : string
     {
         return $this->engine->render($this->getStringTemplate(), $this->data);
     }
 }
-
-return (new TweetRadarr)->parse();

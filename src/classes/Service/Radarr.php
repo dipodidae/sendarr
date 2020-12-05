@@ -13,7 +13,7 @@ class Radarr extends \Sendarr\Service\Base
     /**
      * 
      */
-    private $icon = '🎥';
+    public $icon = '🎥';
     
     /**
      * 

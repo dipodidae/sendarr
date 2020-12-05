@@ -6,6 +6,8 @@ class Base
 {
     public $data;
 
+    public $icon = '[x]';
+
     /**
      * 
      */

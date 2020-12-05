@@ -2,7 +2,7 @@
 
 namespace Sendarr\Service;
 
-class Sonarr extends \Sendarr\Service\Base
+class Sonarr extends Base
 {
 
     /**

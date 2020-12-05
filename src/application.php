@@ -15,6 +15,6 @@
 
 require '../vendor/autoload.php';
 
-new Sendarr\Bootstrap;
+new \Sendarr\Bootstrap;
 
-(new Sendarr\Application)->tweet();
+(new \Sendarr\Application)->tweet();

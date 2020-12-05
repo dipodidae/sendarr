@@ -1,7 +1,6 @@
 <?php
 
 namespace Sendarr;
-use Sendarr\Service as Service;
 
 class Application
 {

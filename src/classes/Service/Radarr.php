@@ -2,7 +2,7 @@
 
 namespace Sendarr\Service;
 
-class Radarr extends \Sendarr\Service\Base
+class Radarr extends Base
 {
 
     /**

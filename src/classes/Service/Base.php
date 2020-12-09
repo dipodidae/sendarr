@@ -8,6 +8,8 @@ class Base
 
     public $icon = '[x]';
 
+    public $name = "Base";
+
     /**
      * 
      */
@@ -39,5 +41,20 @@ class Base
     function getInputData() : array
     {
         return json_decode(file_get_contents('php://input'), true);
+    }
+
+    /**
+     * 
+     */
+    function log($variable) : void
+    {
+        $dateTime =  date('l jS \of F Y h:i:s A');
+        
+        $content = "Log for ${$this->name} on {$dateTime}:\n\n";
+        $content.=json_encode($variable);
+        $content.="\n\n";
+        $content.="=~=~=~=~\n";   
+    
+        file_put_contents(LOG_DIRECTORY . "/{$this->name}.log", $content);
     }
 }

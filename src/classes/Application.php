@@ -18,6 +18,9 @@ class Application
         case '/rest':
             return (new Service\Rest)->getStatus();
             break;
+        case '/github':
+            return (new Service\Github)->getStatus();
+            break;
         default:
             return '';
         }

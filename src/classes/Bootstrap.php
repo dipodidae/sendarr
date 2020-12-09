@@ -6,12 +6,13 @@ class Bootstrap
 {
     function __construct()
     {
-        $this->getEnvVars();
+        $this->_setConstants();
+        $this->_getEnvVars();
     }
 
-    function getEnvVars() : void
+    private function _getEnvVars() : void
     {
-        $dotenv = \Dotenv\Dotenv::createImmutable(dirname(__DIR__, 2));
+        $dotenv = \Dotenv\Dotenv::createImmutable(DIRECTORY_ROOT);
         $dotenv->load();
         $dotenv->required(
             [
@@ -21,5 +22,12 @@ class Bootstrap
                 'twitter_access_token_secret'
             ]
         )->notEmpty();
+    }
+
+    private function _setConstants() : void 
+    {
+
+        define('DIRECTORY_ROOT', dirname(__DIR__, 2));
+        define('DIRECTORY_LOG', DIRECTORY_ROOT . "/logs");
     }
 }

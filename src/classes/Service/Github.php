@@ -19,6 +19,7 @@ class Github extends Base
 
     function getStatus() : string
     {
-        return "Something happened on github. See the logs!";
+        return (new \MarufMax\Emoticon\Emoticon)->random()
+                . "Something happened on github. See the logs!";
     }
 }

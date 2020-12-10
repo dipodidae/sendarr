@@ -40,21 +40,25 @@ class Base
      */
     function getInputData() : array
     {
-        return json_decode(file_get_contents('php://input'), true);
+        return json_decode(file_get_contents('php://input'), true) ?? [];
     }
 
     /**
      * 
      */
-    function log($variable) : void
+    function log(string $name, $variable) : void
     {
         $dateTime =  date('l jS \of F Y h:i:s A');
         
-        $content = "Log for ${$this->name} on {$dateTime}:\n\n";
-        $content.=json_encode($variable);
+        $content = "Log for {$this->name} : {$name} on {$dateTime}:\n\n";
+        $content.=var_export($variable);
         $content.="\n\n";
         $content.="=~=~=~=~\n";   
     
-        file_put_contents(LOG_DIRECTORY . "/{$this->name}.log", $content);
+        file_put_contents(
+            DIRECTORY_LOG . "/{$this->name}.log",
+            $content,
+            FILE_APPEND
+        );
     }
 }

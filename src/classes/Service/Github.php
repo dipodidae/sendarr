@@ -2,7 +2,7 @@
 
 namespace Sendarr\Service;
 
-class Github
+class Github extends Base
 {
    
     public $name = "Github";
@@ -12,9 +12,9 @@ class Github
         
         $this->data = $this->getInputData();
 
-        $this->log($this->data);
-        $this->log($_GET);
-        $this->log($_POST);
+        $this->log("Data", $this->data);
+        $this->log("GET", $_GET);
+        $this->log("POST", $_POST);
     }
 
     function getStatus() : string

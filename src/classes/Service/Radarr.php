@@ -25,9 +25,14 @@ class Radarr extends Base
     /**
      * 
      */
+    private $imdb;
+
+    /**
+     * 
+     */
     private $stringTemplates = [
-        'Grab' => "{emojiIcon} ↝ {emojiRandom} Started downloading ‘{remoteMovie.title}’ ({remoteMovie.year}) ({release.quality} - {release.sizeReadable})",
-        'Download' => "{emojiIcon} ↝ {emojiRandom} Downloaded ‘{remoteMovie.title}’ ({remoteMovie.year}) (https://www.imdb.com/title/{remoteMovie.imdbId}/) 🎉",
+        'Grab' => "{emojiIcon} ↝ {emojiRandom} Started downloading ‘{remoteMovie.title}’ ({remoteMovie.year}) ({release.quality} - {release.sizeReadable}) - ⭐{remoteMovie.rating}",
+        'Download' => "{emojiIcon} ↝ {emojiRandom} Downloaded ‘{remoteMovie.title}’ ({remoteMovie.year}) (https://www.imdb.com/title/{remoteMovie.imdbId}/) - ⭐{remoteMovie.rating} 🎉",
         'Rename' => "{emojiIcon} ↝ {emojiRandom} Renamed ‘{movie.title}’",
         'Test' => "{emojiIcon} ↝ {emojiRandom} Testie!"
     ];
@@ -45,6 +50,11 @@ class Radarr extends Base
         
         if (!$this->validate()) {
             return;
+        }
+
+        if (isset($this->data['remoteMovie'])) {
+            $this->imdb = new \Imdb\Title(preg_replace('/^tt/', '', $this->data['remoteMovie']['imdbId']));
+            $this->data['remoteMove']['rating'] = $this->imdb->getRating();
         }
         
         if ($this->data['eventType'] === 'Grab') {

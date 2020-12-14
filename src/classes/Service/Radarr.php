@@ -53,8 +53,9 @@ class Radarr extends Base
         }
 
         if (isset($this->data['remoteMovie'])) {
-            $this->imdb = new \Imdb\Title(preg_replace('/^tt/', '', $this->data['remoteMovie']['imdbId']));
-            $this->data['remoteMove']['rating'] = $this->imdb->getRating();
+            $imdbId = intval(preg_replace('/^tt/', '', $this->data['remoteMovie']['imdbId']));
+            $this->imdb = new \Imdb\Title($imdbId);
+            $this->data['remoteMovie']['rating'] = $this->imdb->rating();
         }
         
         if ($this->data['eventType'] === 'Grab') {

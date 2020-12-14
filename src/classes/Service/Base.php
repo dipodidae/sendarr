@@ -4,11 +4,11 @@ namespace Sendarr\Service;
 
 class Base
 {
+    public $name = "Base";
+    
     public $data;
 
     public $icon = '[x]';
-
-    public $name = "Base";
 
     /**
      * 
@@ -51,7 +51,7 @@ class Base
         $dateTime =  date('l jS \of F Y h:i:s A');
         
         $content = "Log for {$this->name} : {$name} on {$dateTime}:\n\n";
-        $content.=var_export($variable);
+        $content.=var_export($variable, true);
         $content.="\n\n";
         $content.="=~=~=~=~\n";   
     

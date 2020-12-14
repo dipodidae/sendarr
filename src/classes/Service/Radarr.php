@@ -4,6 +4,8 @@ namespace Sendarr\Service;
 
 class Radarr extends Base
 {
+    
+    public $name = "Radarr";
 
     /**
      * 

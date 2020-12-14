@@ -5,6 +5,8 @@ namespace Sendarr\Service;
 class Sonarr extends Base
 {
 
+    public $name = "Sonarr";
+
     /**
      * 
      */

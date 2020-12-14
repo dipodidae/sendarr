@@ -2,8 +2,13 @@
 
 namespace Sendarr\Service;
 
-class Rest
+class Rest extends Base
 {
+    function __construct()
+    {
+        $this->log("GET", $_GET);
+    }
+
     /**
      * 
      */

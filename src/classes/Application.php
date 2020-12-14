@@ -8,21 +8,29 @@ class Application
     {
         $request = strtolower($_SERVER['REQUEST_URI']);
 
+        return $this->getService($request)->getStatus();
+    }
+
+    function getService($request)
+    {
         switch ($request) {
         case '/radarr':
-            return (new Service\Radarr)->getStatus();
+            return new Service\Radarr;
             break;
         case '/sonarr':
-            return (new Service\Sonarr)->getStatus();
+            return new Service\Sonarr;
             break;
         case '/rest':
-            return (new Service\Rest)->getStatus();
+            return new Service\Rest;
             break;
         case '/github':
-            return (new Service\Github)->getStatus();
+            return new Service\Github;
+            break;
+        case '/lidarr':
+            return new Service\Lidarr;
             break;
         default:
-            return '';
+            return new Service\Base;
         }
     }
 
@@ -64,7 +72,7 @@ class Application
                     $connection->post("statuses/update", ["status" => $status]);
                     $this->sendHeader(200);
                     echo "Tweet posted";
-                } catch (Exception $error) {
+                } catch (\Exception $error) {
                     $this->sendHeader(500);
                     echo "Error tweeting";
                 }

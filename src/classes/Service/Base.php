@@ -49,9 +49,15 @@ class Base
     function log(string $name, $variable) : void
     {
         $dateTime =  date('l jS \of F Y h:i:s A');
+
+        $logContent = var_export($variable, true);
+
+        if (is_array($variable)) {
+            $logContent = json_encode($variable);
+        }
         
         $content = "Log for {$this->name} : {$name} on {$dateTime}:\n\n";
-        $content.=var_export($variable, true);
+        $content.=$logContent;
         $content.="\n\n";
         $content.="=~=~=~=~\n";   
     

@@ -45,6 +45,8 @@ class Radarr extends Base
         
         $this->data = $this->getInputData();
         $this->engine = new \StringTemplate\Engine;
+
+        $this->log("Data", $this->data);
         
         $this->setIcons();
         

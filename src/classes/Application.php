@@ -29,6 +29,9 @@ class Application
         case '/lidarr':
             return new Service\Lidarr;
             break;
+        case '/bazarr':
+            return new Service\Bazarr;
+            break;
         default:
             return new Service\Base;
         }
